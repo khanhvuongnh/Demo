@@ -1,0 +1,84 @@
+<div class="card">
+  <div class="card-header">
+    <h5 class="d-inline-block">Marathon Form</h5>
+    <button class="btn btn-primary float-right" (click)="back()">Back</button>
+  </div>
+  <div class="card-body">
+    <div class="row form-group">
+      <div class="col-12 col-lg-4">
+        <label class="badge badge-warning">
+          full_Name
+        </label>
+        <input type="text" class="form-control" name="full_Name" [(ngModel)]="form.full_Name">
+      </div>
+      <div class="col-12 col-lg-4">
+        <label class="badge badge-warning">
+          date_Of_Birth
+        </label>
+        <input type="text" class="form-control" name="date_Of_Birth" [(ngModel)]="form.date_Of_Birth" bsDatepicker>
+      </div>
+      <div class="col-12 col-lg-4">
+        <label class="badge badge-warning">
+          gender
+        </label><br>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="gender_male" name="gender" [(ngModel)]="form.gender" class="custom-control-input"
+            [value]="true">
+          <label class="custom-control-label" for="gender_male">Male</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="gender_female" name="gender" [(ngModel)]="form.gender" class="custom-control-input"
+            [value]="false">
+          <label class="custom-control-label" for="gender_female">Female</label>
+        </div>
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-12 col-lg-4">
+        <label class="badge badge-warning">
+          address
+        </label>
+        <input type="text" class="form-control" name="address" [(ngModel)]="form.address">
+      </div>
+      <div class="col-12 col-lg-4">
+        <label class="badge badge-warning">
+          phone_Number
+        </label>
+        <input type="text" class="form-control" name="phone_Number" [(ngModel)]="form.phone_Number">
+      </div>
+      <div class="col-12 col-lg-4">
+        <label class="badge badge-warning">
+          email_Address
+        </label>
+        <input type="text" class="form-control" name="email_Address" [(ngModel)]="form.email_Address">
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-12 col-lg-4">
+        <label class="badge badge-warning">
+          distance
+        </label>
+        <input type="text" class="form-control" name="distance" [(ngModel)]="form.distance">
+      </div>
+      <div class="col-12 col-lg-4">
+        <label class="badge badge-warning">
+          from_Time
+        </label>
+        <timepicker [(ngModel)]="form.from_Time" name="from_Time" [showSpinners]="false" [showMeridian]="false">
+        </timepicker>
+      </div>
+      <div class="col-12 col-lg-4">
+        <label class="badge badge-warning">
+          to_Time
+        </label>
+        <timepicker [(ngModel)]="form.to_Time" name="to_Time" [showSpinners]="false" [showMeridian]="false">
+        </timepicker>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <button class="btn btn-primary" (click)="save()">
+      Save
+    </button>
+  </div>
+</div>
