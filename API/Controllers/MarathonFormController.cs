@@ -15,9 +15,9 @@ namespace API.Controllers
         }
 
         [HttpGet("All")]
-        public async Task<IActionResult> GetAllForms([FromQuery] PaginationParam pagination)
+        public async Task<IActionResult> GetAllForms([FromQuery] PaginationParam pagination, [FromQuery] Sortable sort)
         {
-            var result = await _marathonFormService.GetAllForms(pagination);
+            var result = await _marathonFormService.GetAllForms(pagination, sort);
             return Ok(result);
         }
 
@@ -32,6 +32,13 @@ namespace API.Controllers
         public async Task<IActionResult> UpdateForm([FromBody] Marathon_FormDto formDto)
         {
             var result = await _marathonFormService.UpdateForm(formDto);
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateForm([FromBody] Marathon_FormDto formDto)
+        {
+            var result = await _marathonFormService.CreateForm(formDto);
             return Ok(result);
         }
     }

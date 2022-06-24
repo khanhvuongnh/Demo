@@ -1,20 +1,24 @@
 <div class="card">
   <div class="card-header">
-    <h5>Marathon Form</h5>
+    <h5 class="d-inline-block">Marathon Form</h5>
+    <button class="btn btn-primary btn-sm float-right" [routerLink]="['/demo', 'marathon-form', 'add']">
+      <i class="fa fa-plus"></i>
+      Add New
+    </button>
   </div>
   <div class="card-body">
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead class="bg-primary font-weight-bold">
-          <tr>
-            <th>Full Name</th>
-            <th>Gender</th>
-            <th>Date Of Birth</th>
-            <th>Distance</th>
-            <th>From Time</th>
-            <th>To Time</th>
-            <th>Email Address</th>
-            <th></th>
+          <tr sortable (sort)="onSort($event)">
+            <th sort-item="full_Name">Full Name</th>
+            <th sort-item="gender">Gender</th>
+            <th sort-item="date_Of_Birth">Date Of Birth</th>
+            <th sort-item="distance">Distance</th>
+            <th sort-item="from_Time">From Time</th>
+            <th sort-item="to_Time">To Time</th>
+            <th sort-item="email_Address">Email Address</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -26,12 +30,25 @@
             <td>{{item.from_Time}}</td>
             <td>{{item.to_Time}}</td>
             <td>{{item.email_Address}}</td>
-            <td>
-              <a [routerLink]="['/demo/marathon-form/edit', item.record_ID]" class="btn btn-primary">Edit</a>
+            <td style="width: 1rem;">
+              <button [routerLink]="['/demo/marathon-form/edit', item.record_ID]" class="btn btn-warning btn-sm">
+                <i class="fa fa-edit"></i>
+                Edit
+              </button>
             </td>
+          </tr>
+          <tr *ngIf="forms.length == 0">
+            <td colspan="100%" class="table-warning text-center font-weight-bold">NO DATA!</td>
           </tr>
         </tbody>
       </table>
+      <div class="d-flex" *ngIf="pagination.totalPage > 1">
+        <pagination [boundaryLinks]="true" [totalItems]="pagination.totalCount" [(ngModel)]="pagination.pageNumber"
+          [itemsPerPage]="pagination.pageSize" (pageChanged)="pageChanged($event)" previousText="&lsaquo;"
+          nextText="&rsaquo;"
+          firstText="&laquo;" lastText="&raquo;" [maxSize]="5">
+        </pagination>
+      </div>
     </div>
   </div>
 </div>
