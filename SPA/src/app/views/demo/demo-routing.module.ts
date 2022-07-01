@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'marathon-form',
+    path: 'table-sort',
     loadChildren: () => import('./marathon-form/marathon-form.module').then(m => m.MarathonFormModule)
   }
 ];

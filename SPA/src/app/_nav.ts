@@ -12,8 +12,8 @@ export const navItems: INavData[] = [
     icon: 'icon-puzzle',
     children: [
       {
-        name: 'Marathon Form',
-        url: '/demo/marathon-form',
+        name: 'Table Sort',
+        url: '/demo/table-sort',
         icon: 'icon-puzzle'
       }
     ]
