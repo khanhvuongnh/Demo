@@ -42,60 +42,23 @@ Date.prototype.toUTCDate = function (): Date {
     _this.getSeconds(),
     _this.getMilliseconds()));
 }
-//dd-mm-yyyy => 21-12-2019
-//yyyy-mm-dd => 2019-12-21
+
 Date.prototype.toStringDate = function (): string {
   const _this = this as Date;
-
   const year = _this.getFullYear();
   const month = (_this.getMonth() + 1).toStringLeadingZeros(2);
   const date = _this.getDate().toStringLeadingZeros(2);
-  //output 
-
-
   return `${year}/${month}/${date}`;
 }
-//dd-mm-yyyy => 21-12-2019
-//yyyy-mm-dd => 2019-12-21
+
 Date.prototype.toStringDateFormat = function (format: string): string {
   const _this = this as Date;
-
   const year = _this.getFullYear().toString();
   const month = (_this.getMonth() + 1).toStringLeadingZeros(2);
   const date = _this.getDate().toStringLeadingZeros(2);
-
   let result = format.replace(/dd/g, date).replace(/mm/g, month).replace(/yyyy/g, year);
   return result;
-
-
-
-  // //output
-  // let charater = format.split('')
-  //   .filter(x => !['d', 'm', 'y'].includes(x))
-  //   .shift() as string;
-  // let arr = format.split(charater)
-  //   .map(x => [...new Set(x.split(''))][0]);
-  // let dateObject = {
-  //   d: `${date}`,
-  //   m: `${month}`,
-  //   y: `${year}`
-  // }
-  // let t = arr[0] + '';
-  // let result = arr.map(x => {
-  //   if (x === 'd') {
-  //     return dateObject['d'];
-  //   } else if (x === 'm') {
-  //     return dateObject['m'];
-  //   } else {
-  //     return dateObject['y'];
-  //   }
-  // }).join(charater);
 }
-
-
-
-
-
 
 Date.prototype.toStringTime = function (): string {
   const _this = this as Date;

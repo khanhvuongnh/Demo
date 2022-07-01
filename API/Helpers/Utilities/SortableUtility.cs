@@ -10,6 +10,6 @@ namespace API.Helpers.Utilities
     {
         public static string ASC = "ASC";
         public static string DESC = "DESC";
-        public static string NONE = "NONE";
+        public static string NONE = "";
     }
 }

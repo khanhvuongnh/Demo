@@ -50,10 +50,10 @@ namespace API._Services.Services
                 .FindAll(x => x.Status)
                 .ProjectTo<Marathon_FormDto>(_mapperConfiguration);
 
-            if (!string.IsNullOrEmpty(sort.SortType) && sort.SortType != SortType.NONE)
-            {
+            if (!string.IsNullOrEmpty(sort.SortType))
                 formsQuery = formsQuery.OrderBy($"{sort.SortColumn} {sort.SortType}");
-            }
+            else
+                formsQuery = formsQuery.OrderBy(x => x.Full_Name);
 
             return await PaginationUtility<Marathon_FormDto>.CreateAsync(formsQuery, pagination.PageNumber, pagination.PageSize);
         }

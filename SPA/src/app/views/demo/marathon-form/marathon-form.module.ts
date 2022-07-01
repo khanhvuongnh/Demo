@@ -7,8 +7,10 @@ import { FormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { AddComponent } from './add/add.component';
-import { CustomDirectiveModule } from '../../../_core/directives/custom-directive.module';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { SortableDirective } from 'src/app/_core/directives/sortable.directive';
+import { MarathonFormResolver } from '@resolvers/marathon-form.resolver';
+import { MarathonFormEditResolver } from '@resolvers/marathon-form-edit.resolver';
 
 @NgModule({
   imports: [
@@ -17,8 +19,8 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     FormsModule,
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
-    CustomDirectiveModule,
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    SortableDirective
   ],
   exports: [],
   declarations: [
@@ -26,6 +28,9 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     EditComponent,
     AddComponent
   ],
-  providers: [],
+  providers: [
+    MarathonFormResolver,
+    MarathonFormEditResolver
+  ],
 })
 export class MarathonFormModule { }

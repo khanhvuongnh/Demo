@@ -1,11 +1,12 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Pagination, PaginationResult } from '../helpers/utilities/pagination-utility';
-import { Observable } from 'rxjs';
-import { Marathon_Form } from '../models/marathon-form.model';
-import { environment } from '../../../environments/environment';
-import { OperationResult } from '../helpers/utilities/operation-result';
-import { Sortable } from '../directives/sortable.directive';
+import { HttpClient, HttpParams } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Sortable } from "@directives/sortable.directive";
+import { environment } from "@environments/environment";
+import { Marathon_Form } from "@models/marathon-form.model";
+import { Pagination, PaginationResult } from "@utilities/pagination-utility";
+import { Observable, tap } from "rxjs";
+import { OperationResult } from '@utilities/operation-result';
+
 
 @Injectable({ providedIn: 'root' })
 export class MarathonFormService {
@@ -18,22 +19,28 @@ export class MarathonFormService {
   }
 
   getForm(record_ID: number) {
-    return this.http.get<Marathon_Form>(this.apiUrl + 'MarathonForm/', { params: { record_ID } });
+    return this.http.get<Marathon_Form>(this.apiUrl + 'MarathonForm/', { params: { record_ID } })
+      .pipe(
+        tap(res => {
+          res.from_Time = res.from_Time.toString().toDateFromTime();
+          res.to_Time = res.to_Time.toString().toDateFromTime();
+          res.date_Of_Birth = res.date_Of_Birth.toDate();
+        }));
   }
 
   createForm(form: Marathon_Form) {
-    let _from = { ...form };
-    _from.from_Time = (<Date>_from.from_Time).toStringTime();
-    _from.to_Time = (<Date>_from.to_Time).toStringTime();
-    _from.date_Of_Birth = (<Date>_from.date_Of_Birth).toUTCDate().toJSON();
-    return this.http.post<OperationResult>(this.apiUrl + 'MarathonForm/', _from);
+    let body = { ...form };
+    body.from_Time = (<Date>body.from_Time).toStringTime();
+    body.to_Time = (<Date>body.to_Time).toStringTime();
+    body.date_Of_Birth = (<Date>body.date_Of_Birth).toUTCDate().toJSON();
+    return this.http.post<OperationResult>(this.apiUrl + 'MarathonForm/', body);
   }
 
   updateForm(form: Marathon_Form) {
-    let _from = { ...form };
-    _from.from_Time = (<Date>_from.from_Time).toStringTime();
-    _from.to_Time = (<Date>_from.to_Time).toStringTime();
-    _from.date_Of_Birth = (<Date>_from.date_Of_Birth).toUTCDate().toJSON();
-    return this.http.put<OperationResult>(this.apiUrl + 'MarathonForm/', _from);
+    let body = { ...form };
+    body.from_Time = (<Date>body.from_Time).toStringTime();
+    body.to_Time = (<Date>body.to_Time).toStringTime();
+    body.date_Of_Birth = (<Date>body.date_Of_Birth).toUTCDate().toJSON();
+    return this.http.put<OperationResult>(this.apiUrl + 'MarathonForm/', body);
   }
 }

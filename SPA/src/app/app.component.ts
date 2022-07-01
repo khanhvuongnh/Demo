@@ -1,9 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-
+import {
+  Router,
+  Event as RouterEvent,
+  NavigationEnd,
+  NavigationStart,
+  NavigationCancel,
+  NavigationError
+} from '@angular/router';
 import { IconSetService } from '@coreui/icons-angular';
 import { cilUser } from '@coreui/icons';
-import './_core/helpers/utilities/extension-methods';
+import { NgxSpinnerService } from 'ngx-spinner';
+import '@utilities/extension-methods';
 
 @Component({
   // tslint:disable-next-line
@@ -14,18 +21,28 @@ import './_core/helpers/utilities/extension-methods';
 export class AppComponent implements OnInit {
   constructor(
     private router: Router,
-    public iconSet: IconSetService
-  ) {
-    // iconSet singleton
+    public iconSet: IconSetService,
+    private spinnerService: NgxSpinnerService) {
     iconSet.icons = { cilUser };
   }
 
   ngOnInit() {
     this.router.events.subscribe((evt) => {
+      this.navigationInterceptor(evt);
       if (!(evt instanceof NavigationEnd)) {
         return;
       }
       window.scrollTo(0, 0);
     });
+  }
+
+  navigationInterceptor(e: RouterEvent) {
+    if (e instanceof NavigationStart) {
+      this.spinnerService.show();
+    }
+
+    if (e instanceof NavigationEnd || e instanceof NavigationCancel || e instanceof NavigationError) {
+      this.spinnerService.hide();
+    }
   }
 }

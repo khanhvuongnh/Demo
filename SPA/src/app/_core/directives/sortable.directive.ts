@@ -1,7 +1,8 @@
 import { Directive, ElementRef, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Directive({
-  selector: '[sortable]'
+  selector: '[sortable]',
+  standalone: true
 })
 export class SortableDirective implements OnInit {
   @Output('sort') sort: EventEmitter<Sortable> = new EventEmitter();
@@ -76,11 +77,6 @@ export class SortableDirective implements OnInit {
       }
     });
 
-    if (sortType == SortType.NONE) {
-      sortColumn = '';
-      sortType = '';
-    }
-
     this.sort.emit(<Sortable>{ sortColumn, sortType });
   }
 }
@@ -93,7 +89,7 @@ export interface Sortable {
 export enum SortType {
   ASC = 'ASC',
   DESC = 'DESC',
-  NONE = 'NONE'
+  NONE = ''
 };
 
 export enum SortClass {

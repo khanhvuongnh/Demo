@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Sortable } from 'src/app/_core/directives/sortable.directive';
-import { Pagination } from 'src/app/_core/helpers/utilities/pagination-utility';
+import { ActivatedRoute } from '@angular/router';
+import { MarathonFormService } from '@services/marathon-form.service';
+import { Sortable, SortType } from 'src/app/_core/directives/sortable.directive';
+import { Pagination } from '@utilities/pagination-utility';
 import { Marathon_Form } from 'src/app/_core/models/marathon-form.model';
-import { MarathonFormService } from '../../../../_core/services/marathon-form.service';
 
 @Component({
   selector: 'app-main',
@@ -11,16 +12,16 @@ import { MarathonFormService } from '../../../../_core/services/marathon-form.se
 })
 export class MainComponent implements OnInit {
   forms: Marathon_Form[] = [];
-  pagination: Pagination = <Pagination>{
-    pageNumber: 1,
-    pageSize: 10,
-  }
-  sort: Sortable = <Sortable>{};
+  pagination: Pagination = <Pagination>{ pageNumber: 1, pageSize: 10 }
+  sort: Sortable = <Sortable>{ sortColumn: '', sortType: SortType.NONE };
 
-  constructor(private marathonFormService: MarathonFormService) { }
+  constructor(
+    private marathonFormService: MarathonFormService,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.getData();
+    this.pagination = this.route.snapshot.data['res'].pagination;
+    this.forms = this.route.snapshot.data['res'].result;
   }
 
   getData(): void {
@@ -29,7 +30,9 @@ export class MainComponent implements OnInit {
         this.forms = res.result;
         this.pagination = res.pagination;
       },
-      error: (err) => console.log(err)
+      error: (err) => {
+        console.log(err);
+      }
     })
   }
 
