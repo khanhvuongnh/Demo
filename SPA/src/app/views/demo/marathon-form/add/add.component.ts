@@ -13,6 +13,8 @@ import { catchError, firstValueFrom, of, tap } from 'rxjs';
 })
 export class AddComponent implements OnInit {
   form: Marathon_Form = <Marathon_Form>{ gender: true };
+  backupForm: Marathon_Form = <Marathon_Form>{ gender: true };
+
   constructor(
     private marathonFormService: MarathonFormService,
     private snotifyService: NgSnotifyService,
@@ -46,5 +48,9 @@ export class AddComponent implements OnInit {
 
   back() {
     this.router.navigate(['/demo/marathon-form']);
+  }
+
+  reset() {
+    this.form = { ...this.backupForm };
   }
 }

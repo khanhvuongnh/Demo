@@ -13,6 +13,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class EditComponent implements OnInit {
   form: Marathon_Form = <Marathon_Form>{};
+  backupForm: Marathon_Form = <Marathon_Form>{};
+
   constructor(
     private marathonFormService: MarathonFormService,
     private route: ActivatedRoute,
@@ -21,7 +23,8 @@ export class EditComponent implements OnInit {
     private spinnerService: NgxSpinnerService) { }
 
   ngOnInit(): void {
-    this.form = this.route.snapshot.data['res'];
+    this.form = { ...this.route.snapshot.data['res'] };
+    this.backupForm = { ...this.route.snapshot.data['res'] };
   }
 
   async save() {
@@ -46,5 +49,9 @@ export class EditComponent implements OnInit {
 
   back() {
     this.router.navigate(['/demo/marathon-form']);
+  }
+
+  reset() {
+    this.form = { ...this.backupForm };
   }
 }

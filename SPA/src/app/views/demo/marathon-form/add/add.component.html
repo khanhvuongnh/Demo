@@ -1,7 +1,7 @@
 <form #marathonForm="ngForm" class="card" (submit)="save()">
   <div class="card-header">
     <h5 class="d-inline-block">Marathon Form</h5>
-    <button class="btn btn-primary float-right btn-sm" (click)="back()">
+    <button class="btn btn-primary float-right btn-sm" type="button" (click)="back()">
       <i class="fa fa-chevron-left"></i>
       Back
     </button>
@@ -87,6 +87,10 @@
     </div>
   </div>
   <div class="card-footer">
+    <button class="btn btn-danger mr-1" type="button" (click)="reset()">
+      <i class="fa fa-refresh"></i>
+      Reset
+    </button>
     <button class="btn btn-success" type="submit" [disabled]="marathonForm.invalid">
       <i class="fa fa-save"></i>
       Save
